@@ -1,0 +1,88 @@
+{
+  "boards": [
+    {
+      "id": "1",
+      "title": "Launch Platform",
+      "completedTasks": 12,
+      "pendingTasks": 4,
+      "inProgressTasks": 2
+    },
+    {
+      "id": "2",
+      "title": "Marketing Campaign",
+      "completedTasks": 5,
+      "pendingTasks": 8,
+      "inProgressTasks": 3
+    },
+    {
+      "id": "3",
+      "title": "Mobile App Development",
+      "completedTasks": 20,
+      "pendingTasks": 15,
+      "inProgressTasks": 7
+    },
+    {
+      "id": "4",
+      "title": "Q4 Roadmap",
+      "completedTasks": 0,
+      "pendingTasks": 10,
+      "inProgressTasks": 1
+    },
+    {
+      "id": "5",
+      "title": "Website Redesign",
+      "completedTasks": 8,
+      "pendingTasks": 12,
+      "inProgressTasks": 5
+    },
+    {
+      "id": "6",
+      "title": "Client Outreach",
+      "completedTasks": 45,
+      "pendingTasks": 5,
+      "inProgressTasks": 10
+    },
+    {
+      "id": "7",
+      "title": "Internal Audit",
+      "completedTasks": 2,
+      "pendingTasks": 18,
+      "inProgressTasks": 4
+    },
+    {
+      "id": "8",
+      "title": "Social Media Strategy",
+      "completedTasks": 15,
+      "pendingTasks": 3,
+      "inProgressTasks": 6
+    },
+    {
+      "id": "9",
+      "title": "Product Hunt Launch",
+      "completedTasks": 22,
+      "pendingTasks": 8,
+      "inProgressTasks": 12
+    },
+    {
+      "id": "10",
+      "title": "Team Retreat Planning",
+      "completedTasks": 6,
+      "pendingTasks": 4,
+      "inProgressTasks": 2
+    },
+    {
+      "id": "11",
+      "title": "Q1 Hiring",
+      "completedTasks": 1,
+      "pendingTasks": 15,
+      "inProgressTasks": 3
+    },
+    {
+      "id": "12",
+      "title": "Server Migration",
+      "completedTasks": 30,
+      "pendingTasks": 2,
+      "inProgressTasks": 1
+    }
+  ]
+}
