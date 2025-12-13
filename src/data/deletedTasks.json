@@ -1,0 +1,44 @@
+{
+  "deletedTasks": [
+    {
+      "id": "1",
+      "name": "Diseñar Mockups",
+      "taskNumber": 12
+    },
+    {
+      "id": "2",
+      "name": "Configurar Base de Datos",
+      "taskNumber": 5
+    },
+    {
+      "id": "3",
+      "name": "Revisar Documentación",
+      "taskNumber": 8
+    },
+    {
+      "id": "4",
+      "name": "Actualizar Dependencias",
+      "taskNumber": 3
+    },
+    {
+      "id": "5",
+      "name": "Arreglar Bug de Login",
+      "taskNumber": 15
+    },
+    {
+      "id": "6",
+      "name": "Optimizar Imágenes",
+      "taskNumber": 7
+    },
+    {
+      "id": "7",
+      "name": "Crear Componente de Alerta",
+      "taskNumber": 21
+    },
+    {
+      "id": "8",
+      "name": "Refactorizar API",
+      "taskNumber": 9
+    }
+  ]
+}

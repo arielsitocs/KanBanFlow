@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+:root {
+  --main-color: #102146;
+  --mustard-color: #9D9661;
+  --transparent-gray: rgba(255, 255, 255, 22%);
+  --bluek-link-color: #586FFF;
+  --gray-text-color: #8B8B8B;
+  --gray-text-color-2: #A4A4A4;
+  --copyright-text-color: rgba(255, 255, 255, 22%);
+  --transparent-gray-background: rgba(207, 207, 207, 15%);
+  --light-gray-background: #F6F6F6;
+  --gray-background: rgba(248, 249, 252, 17%);
+  --gray-background-solid: #f5f5f5;
+  --gray-background-menu: rgba(248, 249, 252, 0.842);
+  --task-gray-background: rgba(246, 246, 246, 33%);
+  --dark-gray-background: rgba(123, 123, 123, 27%);
+  --gray-border-color: #D9D9D9;
+  --gray-light-border-color: rgba(224, 224, 224, 33%);
+  --gray-main-background: #E9E9E9;
+  --green-color: #2AA105;
+  --orange-color: #FFB30D;
+  --light-blue-color: #92A3F9;
+  --light-red-color: #FF9193;
+  --red-color: #620000;
+
+}
+
+@theme inline {
+  --font-poppins: var(--font-poppins);
+  --font-m-plus-1p: var(--font-m-plus-1p);
+  --font-inter: var(--font-inter);
+  --font-luckiest-guy: var(--font-luckiest-guy);
+  --color-main: var(--main-color);
+  --color-mustard: var(--mustard-color);
+  --color-gray-transparent: var(--transparent-gray);
+  --color-blue-link: var(--bluek-link-color);
+  --color-text-gray: var(--gray-text-color);
+  --color-text-gray-2: var(--gray-text-color-2);
+  --color-copyright-text: var(--copyright-text-color);
+  --color-transparent-gray-background: var(--transparent-gray-background);
+  --color-light-gray-background: var(--light-gray-background);
+  --color-task-gray-background: var(--task-gray-background);
+  --color-gray-background: var(--gray-background);
+  --color-gray-background-menu: var(--gray-background-menu);
+  --color-gray-solid-background: var(--gray-background-solid);
+  --color-dark-gray-background: var(--dark-gray-background);
+  --color-border-gray: var(--gray-border-color);
+  --color-border-light-gray: var(--gray-light-border-color);
+  --color-main-gray-background: var(--gray-main-background);
+  --color-green: var(--green-color);
+  --color-orange: var(--orange-color);
+  --color-light-blue: var(--light-blue-color);
+  --color-light-red: var(--light-red-color);
+  --color-red: var(--red-color);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@layer components {
+  .form-input {
+    @apply w-full px-4 py-3 rounded-lg mb-8 border border-border-gray placeholder-text-gray-2 focus:outline-none focus:ring-2 focus:ring-main transition-all duration-200;
+  }
+
+  .form-input-title {
+    @apply mb-2 font-bold font-m-plus-1p;
+  }
+
+  .alert-confirm {
+    @apply flex flex-col items-center justify-center w-[90%] md:w-[65%] lg:w-[50%] xl:w-[35%] bg-gray-solid-background p-6 rounded-[5px] font-poppins text-center border-[2px] border-red
+  }
+
+  .task-card {
+    @apply flex flex-col p-4 bg-white rounded-[5px] min-h-[95%]
+  }
+}

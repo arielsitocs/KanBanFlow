@@ -1,0 +1,32 @@
+{
+  "editor.inlineSuggest.enabled": false,
+  "github.copilot.inlineSuggest.enable": false,
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "typescript": false,
+    "javascript": false,
+    "typescriptreact": false,
+    "javascriptreact": false,
+    "json": false
+  },
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": false
+  },
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.acceptSuggestionOnEnter": "on",
+  "editor.snippetSuggestions": "inline",
+  "editor.wordBasedSuggestions": "matchingDocuments",
+  "editor.parameterHints.enabled": true,
+  "editor.hover.enabled": true,
+  "editor.inlayHints.enabled": "on",
+  "editor.codeLens": true,
+  "typescript.validate.enable": true,
+  "javascript.validate.enable": true,
+  "html.validate.scripts": true,
+  "css.validate.enable": true
+}
