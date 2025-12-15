@@ -15,6 +15,10 @@ import EditTask from './forms/EditTask';
 
 import { useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
+import { toast } from 'sonner';
+
 export default function TasksCard({ state, board, tasks }: TaskCardTypes) {
 
   const pendingTasks = tasks.filter((task: any) => task.boardid === board.boardid && task.status === 'pending')
@@ -25,6 +29,8 @@ export default function TasksCard({ state, board, tasks }: TaskCardTypes) {
   const [alertState, setAlertState] = useState(false);
   const [editTask, setEditTask] = useState({} as TaskTypes);
   const [editTaskState, setEditTaskState] = useState(false);
+
+  const router = useRouter();
 
   const handleUpdateTask = (id: number) => {
     const updateTask = tasks.find((task: any) => task.taskid === id)
@@ -90,7 +96,7 @@ export default function TasksCard({ state, board, tasks }: TaskCardTypes) {
       <NewTask board={board} state={newTaskState} setState={setNewTaskState} />
       <Alert message="Estás seguro de eliminar todas las tareas?" prop="Se eliminarán todas las tareas de esta tabla"
         type='confirm' status={alertState} setStatus={setAlertState} action={() => { }} />
-      <EditTask taskid={editTask.taskid} taskname={editTask.taskname} limitdate={editTask.limitdate} priority={editTask.priority} status={editTask.status} state={editTaskState} setState={setEditTaskState} />
+      <EditTask board={board} taskid={editTask.taskid} taskname={editTask.taskname} limitdate={editTask.limitdate} priority={editTask.priority} status={editTask.status} state={editTaskState} setState={setEditTaskState} />
     </div>
   )
 }

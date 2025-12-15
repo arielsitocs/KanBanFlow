@@ -1,21 +1,30 @@
 "use client"
 
 import FormInput from "../../components/ui/FormInput";
+import Loader from "../../components/ui/Loader";
 
 import NewTaskFormTypes from "../../types/NewTaskForm";
 
 import { useState } from "react";
+
+import { useRouter } from "next/navigation";
+
+import { toast } from "sonner";
 
 export default function NewTask({ state, setState, board }: NewTaskFormTypes) {
   const [title, setTitle] = useState('');
   const [limitDate, setLimitDate] = useState('');
   const [priority, setPriority] = useState('Baja');
   const [taskState, setTaskState] = useState('pending');
+  const [loaderState, setLoaderState] = useState(false);
+
+  const router = useRouter();
 
   async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     try {
+      setLoaderState(true);
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tasks/create`, {
         method: 'POST',
         headers: {
@@ -32,14 +41,18 @@ export default function NewTask({ state, setState, board }: NewTaskFormTypes) {
       })
 
       if (response.ok) {
-        window.location.reload()
+        router.refresh();
+        setState(false);
+        toast.success('Tarea creada exitosamente');
       } else if (response.status === 500) {
-        alert('Tarea no creada - ERROR 500 DEL SERVIDOR');
+        toast.error('Error al crear la tarea - ERROR 500 DEL SERVIDOR');
       } else {
-        alert('Tarea no creada - ERROR DESCONOCIDO DEL CLIENTE');
+        toast.error('Error al crear la tarea - ERROR DESCONOCIDO DEL CLIENTE');
       }
     } catch (error) {
       console.error('Error al crear la tarea: ', error)
+    } finally {
+      setLoaderState(false);
     }
   }
 
@@ -83,6 +96,7 @@ export default function NewTask({ state, setState, board }: NewTaskFormTypes) {
                 </div>
               </form>
             </div>
+            <Loader state={loaderState} setState={setLoaderState} />
           </div>
         ) : null
       }

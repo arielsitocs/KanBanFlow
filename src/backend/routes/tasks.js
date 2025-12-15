@@ -65,6 +65,33 @@ router.post("/create", async (req, res) => {
   }
 })
 
+router.put("/update/:id", async (req, res) => {
+  try {
+    const { taskname, limitdate, priority, status, boardid, userid } = req.body;
+
+    const response = await prisma.tasks.update({
+      where: {
+        taskid: parseInt(req.params.id)
+      },
+      data: {
+        taskname: taskname,
+        limitdate: new Date(limitdate),
+        priority: priority,
+        status: status,
+        boardid: boardid,
+        userid: userid
+      }
+    })
+    if (response) {
+      res.status(200).json({ message: "Tarea actualizada con exito" })
+    } else {
+      res.status(404).json({ message: "Tarea no actualizada" })
+    }
+  } catch (error) {
+    console.error('Error en el servidor al actualizar la tarea: ', error.message)
+  }
+})
+
 router.delete("/delete/:id", async (req, res) => {
   try {
     const response = await prisma.tasks.delete({

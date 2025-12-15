@@ -6,6 +6,7 @@ interface TaskTypes {
     status: 'pending' | 'in progress' | 'completed';
     state?: boolean;
     setState?: (state: boolean) => void;
+    board?: any;
 }
 
 export default TaskTypes;

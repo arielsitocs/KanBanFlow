@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins, M_PLUS_1p, Inter, Luckiest_Guy } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -41,6 +42,19 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${mPlus1p.variable} ${inter.variable} ${luckiestGuy.variable} antialiased`}
       >
+        <Toaster
+          richColors={false}
+          position="bottom-right"
+          toastOptions={{
+            // estilos generales del toast, success y error se definen por separado en global.css //
+            style: {
+              background: 'var(--main-color)',
+              color: 'white',
+              border: 'none',
+            },
+            className: 'font-poppins group'
+          }}
+        />
         {children}
       </body>
     </html>
