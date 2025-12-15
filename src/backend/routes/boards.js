@@ -65,6 +65,30 @@ router.post("/create", async (req, res) => {
   }
 })
 
+router.put("/update/:id", async (req, res) => {
+  const { title } = req.body;
+
+  try {
+    const response = await prisma.boards.update({
+      where: {
+        boardid: parseInt(req.params.id)
+      },
+      data: {
+        title: title
+      }
+    })
+
+    if (response) {
+      res.status(200).json({ message: `Tablero "${title}" actualizado exitosamente` });
+    } else {
+      res.status(404).json({ message: "Tablero no actualizado" })
+    }
+  } catch (error) {
+    console.error("Error en el servidor al actualizar el tablero: ", error);
+    res.status(500).json({ message: "Error en el servidor al actualizar el tablero en el servidor: ", error: error.message })
+  }
+})
+
 router.delete("/deleteone/:id", async (req, res) => {
   try {
     const response = await prisma.boards.delete({

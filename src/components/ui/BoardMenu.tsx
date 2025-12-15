@@ -8,12 +8,19 @@ import DeleteIcon from "../../../public/cross-delete-icon.svg";
 import BoardTypes from "../../types/Board";
 import EditBoard from "../forms/EditBoard";
 import Alert from "./Alert";
+import Loader from "./Loader";
 
 import { useState } from "react";
+
+import { useRouter } from "next/navigation";
+
+import { toast } from "sonner";
 
 export default function BoardMenu({ boardid, title, state }: BoardTypes) {
   const [editBoardState, setEditBoardState] = useState(false);
   const [deleteBoardState, setDeleteBoardState] = useState(false);
+
+  const router = useRouter();
 
   async function handleDeleteBoard() {
     try {
@@ -22,9 +29,10 @@ export default function BoardMenu({ boardid, title, state }: BoardTypes) {
       });
 
       if (response.ok) {
-        window.location.reload();
+        toast.success('Tablero eliminado exitosamente')
+        router.refresh();
       } else {
-        alert('Error al eliminar el tablero');
+        toast.error('Error al eliminar el tablero')
       }
     } catch (error) {
       console.error('Error al eliminar el tablero: ', error);

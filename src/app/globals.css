@@ -75,4 +75,13 @@
   .task-card {
     @apply flex flex-col p-4 bg-white rounded-[5px] min-h-[95%]
   }
+
+  /* estilos del toast */
+  li[data-sonner-toast][data-type="success"] {
+    border: 2px solid var(--green-color) !important;
+  }
+
+  li[data-sonner-toast][data-type="error"] {
+    border: 2px solid var(--red-color) !important;
+  }
 }
