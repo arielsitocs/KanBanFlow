@@ -1,36 +1,135 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌊 KanBanFlow
 
-## Getting Started
+> **Organiza, Gestiona y Fluye.**
+> Una aplicación Full-Stack de gestión de tareas estilo Kanban, diseñada para ser moderna, simple, rápida y eficiente.
 
-First, run the development server:
+![Next.js](https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
+![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 🚀 Características Principales
+
+*   **⚡ Frontend Moderno:** Construido con **Next.js 15 (App Router)** y **React 19** para un rendimiento óptimo.
+*   **🎨 Diseño Elegante:** Estilizado con **Tailwind CSS v4**, ofreciendo una interfaz limpia y responsiva.
+*   **📊 Seguimiento Visual:** Integración de `react-circular-progressbar` para visualizar el progreso de tus tableros.
+*   **🔌 Backend Robusto:** servidor API RESTful construido con **Express.js**.
+*   **🗄️ Base de Datos Sólida:** Gestión de datos con **PostgreSQL** y **Prisma ORM** para una interacción type-safe.
+*   **☁️ Listo para Despliegue:** Configuración lista para **Render** (Infrastructure as Code con `render.yaml`).
+*   **🔔 Notificaciones:** Sistema de alertas bonitas y no intrusivas con `sonner`.
+
+---
+
+## 🛠️ Estructura del Proyecto
+
+El proyecto está organizado como un monorepo híbrido (Frontend + Backend en el mismo repo):
+
+```
+KanBanFlow/
+├── src/
+│   ├── app/            # Frontend (Next.js App Router)
+│   ├── components/     # Componentes React Reutilizables
+│   ├── backend/        # Servidor Express y Lógica de API
+│   │   ├── routes/     # Rutas de la API (Usuarios, Tableros, Tareas)
+│   │   ├── config/     # Configuración de BD (Prisma Client)
+│   │   └── server.js   # Punto de entrada del Backend
+│   ├── lib/            # Utilidades y librerías
+│   └── types/          # Definiciones de Tipos TypeScript
+├── prisma/
+│   └── schema.prisma   # Esquema de Base de Datos y Modelos
+├── public/             # Assets estáticos
+└── render.yaml         # Configuración de Despliegue en Render
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🏁 Comenzando
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Sigue estos pasos para ejecutar el proyecto localmente.
 
-## Learn More
+### Prerrequisitos
 
-To learn more about Next.js, take a look at the following resources:
+*   Node.js (v20 o superior recomendado)
+*   npm o yarn
+*   Una base de datos PostgreSQL local o una URL de conexión remota via Neon/Render/Supabase.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 1. Instalación
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Clona el repositorio e instala las dependencias:
 
-## Deploy on Vercel
+```bash
+git clone https://github.com/tu-usuario/kanbanflow.git
+cd KanBanFlow
+npm install
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 2. Configuración de Entorno
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Crea un archivo `.env` en la raíz del proyecto y añade tu URL de conexión a la base de datos:
+
+```env
+DATABASE_URL="postgresql://usuario:password@localhost:5432/kanbanflow?schema=public"
+```
+
+### 3. Base de Datos (Prisma)
+
+Genera el cliente de Prisma y sincroniza el esquema con tu base de datos:
+
+```bash
+# Generar cliente
+npx prisma generate
+
+# Sincronizar DB (Dev)
+npx prisma db push
+```
+
+### 4. Ejecutar
+
+Para desarrollo, necesitarás correr tanto el frontend como el backend.
+
+**Terminal 1 (Backend):**
+```bash
+npm run server
+```
+_El servidor correrá en el puerto configurado (ej: 3001 o 5000)._
+
+**Terminal 2 (Frontend):**
+```bash
+npm run dev
+```
+_La aplicación estará disponible en `http://localhost:3000`._
+
+---
+
+## 📦 Despliegue
+
+Este proyecto incluye un archivo `render.yaml` configurado para desplegarse automáticamente en **Render**.
+
+1.  Crea una cuenta en [Render](https://render.com).
+2.  Conecta tu repositorio de GitHub.
+3.  Selecciona "Blueprints" y elige este repositorio.
+4.  Render detectará el archivo `render.yaml` y creará automáticamente:
+    *   Una base de datos PostgreSQL.
+    *   El servicio web (Backend + Frontend build).
+    *   Vinculará las variables de entorno (`DATABASE_URL`) por ti.
+
+---
+
+## 🤝 Contribución
+
+¡Las contribuciones son bienvenidas! Si tienes ideas para mejorar KanBanFlow:
+
+1.  Haz un Fork del proyecto.
+2.  Crea una rama (`git checkout -b feature/NuevaFeature`).
+3.  Haz Commit de tus cambios (`git commit -m 'Agrega nueva feature'`).
+4.  Haz Push a la rama (`git push origin feature/NuevaFeature`).
+5.  Abre un Pull Request.
+
+---
+
+Hecho con ❤️ por [Tu Nombre/Usuario]
