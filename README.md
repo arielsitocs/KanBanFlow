@@ -129,7 +129,3 @@ Este proyecto incluye un archivo `render.yaml` configurado para desplegarse auto
 3.  Haz Commit de tus cambios (`git commit -m 'Agrega nueva feature'`).
 4.  Haz Push a la rama (`git push origin feature/NuevaFeature`).
 5.  Abre un Pull Request.
-
----
-
-Hecho con ❤️ por [Tu Nombre/Usuario]
