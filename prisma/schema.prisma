@@ -11,20 +11,20 @@ model boards {
   boardid Int     @id @default(autoincrement())
   title   String  @db.VarChar
   userid  Int?
-  users   users?  @relation(fields: [userid], references: [userid], onDelete: NoAction, onUpdate: NoAction)
+  users   users?  @relation(fields: [userid], references: [userid], onDelete: Cascade, onUpdate: NoAction)
   tasks   tasks[]
 }
 
 model tasks {
-  taskid    Int      @id @default(autoincrement())
-  taskname  String   @db.VarChar
-  limitdate DateTime @db.Date
-  priority  String   @db.VarChar
-  status    String   @db.VarChar
-  boardid   Int?
-  userid    Int?
-  boards    boards?  @relation(fields: [boardid], references: [boardid], onDelete: Cascade, onUpdate: NoAction)
-  users     users?   @relation(fields: [userid], references: [userid], onDelete: NoAction, onUpdate: NoAction)
+  taskid      Int      @id @default(autoincrement())
+  taskname    String   @db.VarChar
+  limitdate   DateTime @db.Date
+  priority    String   @db.VarChar
+  status      String   @db.VarChar
+  boardid     Int?
+  userid      Int?
+  boards      boards?  @relation(fields: [boardid], references: [boardid], onDelete: Cascade, onUpdate: NoAction)
+  users       users?   @relation(fields: [userid], references: [userid], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model users {

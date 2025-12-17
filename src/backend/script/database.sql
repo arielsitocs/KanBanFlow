@@ -9,11 +9,6 @@ CREATE TABLE users(
 	password VARCHAR NOT NULL
 );
 
-DELETE FROM users WHERE userid = 6;
-
-INSERT INTO boards (title, userid) VALUES 
-	('Test Validacion', 8)
-
 CREATE TABLE boards(
 	boardId SERIAL PRIMARY KEY,
 	title VARCHAR not null,
