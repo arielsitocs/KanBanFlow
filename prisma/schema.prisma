@@ -7,6 +7,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model users {
+  userid   Int      @id @default(autoincrement())
+  username String   @db.VarChar
+  email    String   @db.VarChar
+  password String   @db.VarChar
+  boards   boards[]
+}
+
 model boards {
   boardid Int     @id @default(autoincrement())
   title   String  @db.VarChar
@@ -16,22 +24,12 @@ model boards {
 }
 
 model tasks {
-  taskid      Int      @id @default(autoincrement())
-  taskname    String   @db.VarChar
-  limitdate   DateTime @db.Date
-  priority    String   @db.VarChar
-  status      String   @db.VarChar
-  boardid     Int?
-  userid      Int?
-  boards      boards?  @relation(fields: [boardid], references: [boardid], onDelete: Cascade, onUpdate: NoAction)
-  users       users?   @relation(fields: [userid], references: [userid], onDelete: Cascade, onUpdate: NoAction)
-}
-
-model users {
-  userid   Int      @id @default(autoincrement())
-  username String   @db.VarChar
-  email    String   @db.VarChar
-  password String   @db.VarChar
-  boards   boards[]
-  tasks    tasks[]
+  taskid    Int      @id @default(autoincrement())
+  taskname  String   @db.VarChar
+  limitdate DateTime @db.Date
+  priority  String   @db.VarChar
+  status    String   @db.VarChar
+  boardid   Int?
+  userid    Int?
+  boards    boards?  @relation(fields: [boardid], references: [boardid], onDelete: Cascade, onUpdate: NoAction)
 }
