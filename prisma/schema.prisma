@@ -1,18 +1,11 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-model users {
-  userid   Int      @id @default(autoincrement())
-  username String   @db.VarChar
-  email    String   @db.VarChar
-  password String   @db.VarChar
-  boards   boards[]
 }
 
 model boards {
@@ -32,4 +25,12 @@ model tasks {
   boardid   Int?
   userid    Int?
   boards    boards?  @relation(fields: [boardid], references: [boardid], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model users {
+  userid   Int      @id @default(autoincrement())
+  username String   @db.VarChar
+  email    String   @db.VarChar
+  password String   @db.VarChar
+  boards   boards[]
 }
