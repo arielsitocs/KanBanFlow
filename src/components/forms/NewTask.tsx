@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { toast } from "sonner";
+import Cookies from "js-cookie";
 
 export default function NewTask({ state, setState, board }: NewTaskFormTypes) {
   const [title, setTitle] = useState('');
@@ -28,8 +29,10 @@ export default function NewTask({ state, setState, board }: NewTaskFormTypes) {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tasks/create`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${Cookies.get('token')}`
         },
+        credentials: 'include',
         body: JSON.stringify({
           taskname: title,
           limitdate: limitDate,

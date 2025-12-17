@@ -68,9 +68,9 @@ router.post("/create", authMiddleware, async (req, res) => {
   }
 })
 
-router.put("/update/:id", async (req, res) => {
+router.put("/update/:id", authMiddleware, async (req, res) => {
   const { title } = req.body;
-
+  
   try {
     const response = await prisma.boards.update({
       where: {
@@ -92,7 +92,7 @@ router.put("/update/:id", async (req, res) => {
   }
 })
 
-router.delete("/deleteone/:id", async (req, res) => {
+router.delete("/deleteone/:id", authMiddleware, async (req, res) => {
   try {
     const response = await prisma.boards.delete({
       where: {

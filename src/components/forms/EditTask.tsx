@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import { toast } from "sonner";
+import Cookies from "js-cookie";
 
 export default function EditTask({ board, taskid, taskname, limitdate, priority, status, state, setState = () => { } }: TaskTypes) {
   const [oldName, setOldName] = useState(taskname);
@@ -37,7 +38,12 @@ export default function EditTask({ board, taskid, taskname, limitdate, priority,
     try {
       setLoaderState(true);
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tasks/delete/${taskid}`, {
-        method: 'DELETE'
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${Cookies.get('token')}`
+        },
+        credentials: 'include'
       })
 
       if (response.ok) {
@@ -59,10 +65,12 @@ export default function EditTask({ board, taskid, taskname, limitdate, priority,
     try {
       setLoaderState(true);
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tasks/update/${taskid}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${Cookies.get('token')}`
         },
+        credentials: 'include',
         body: JSON.stringify({
           taskname: oldName,
           limitdate: oldLimitDate,

@@ -1,6 +1,7 @@
 "use client"
 
-import Image from "next/image"
+import Image from "next/image";
+import Cookies from "js-cookie";
 
 import EditIcon from "../../../public/edit-icon.svg";
 import DeleteIcon from "../../../public/cross-delete-icon.svg";
@@ -25,9 +26,13 @@ export default function BoardMenu({ boardid, title, state }: BoardTypes) {
   async function handleDeleteBoard() {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/boards/deleteone/${boardid}`, {
-        method: 'DELETE'
-      });
-
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${Cookies.get('token')}`
+        },
+        credentials: 'include'
+      })
       if (response.ok) {
         toast.success('Tablero eliminado exitosamente')
         router.refresh();

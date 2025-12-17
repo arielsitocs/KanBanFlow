@@ -3,8 +3,8 @@
 import jwt from "jsonwebtoken";
 
 const authMiddleware = (req, res, next) => {
-  // obtener el token de las cookies //
-  const token = req.cookies.token;
+  // obtener el token de los headers (Bearer) o de las cookies //
+  const token = req.headers.authorization?.split(" ")[1] || req.cookies.token;
 
   if (!token) {
     return res.status(401).json({ message: "No autorizado, no se encontró token existente" });

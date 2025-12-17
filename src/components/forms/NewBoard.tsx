@@ -1,5 +1,7 @@
 "use client"
 
+import Cookies from "js-cookie";
+
 import FormInput from "../../components/ui/FormInput";
 import Loader from "../../components/ui/Loader";
 
@@ -24,7 +26,8 @@ export default function NewBoard({ state, setState }: NewBoardFormTypes) {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/boards/create`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${Cookies.get('token')}`
         },
         // para que deje enviar las cookies al backend //
         credentials: 'include',

@@ -1,6 +1,8 @@
 import { Router } from "express";
 import prisma from "../config/db.js";
 
+import authMiddleware from "../middleware/auth.js";
+
 const router = Router();
 
 router.get("/", (req, res) => {
@@ -37,7 +39,7 @@ router.get("/getone/:id", async (req, res) => {
   }
 })
 
-router.post("/create", async (req, res) => {
+router.post("/create", authMiddleware, async (req, res) => {
   const { taskname, limitdate, priority, status, boardid, userid } = req.body;
 
   if (!taskname || !limitdate || !priority || !status || !boardid || !userid) {
@@ -65,7 +67,7 @@ router.post("/create", async (req, res) => {
   }
 })
 
-router.put("/update/:id", async (req, res) => {
+router.put("/update/:id", authMiddleware, async (req, res) => {
   try {
     const { taskname, limitdate, priority, status, boardid, userid } = req.body;
 
@@ -92,7 +94,7 @@ router.put("/update/:id", async (req, res) => {
   }
 })
 
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", authMiddleware, async (req, res) => {
   try {
     const response = await prisma.tasks.delete({
       where: {

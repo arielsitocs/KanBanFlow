@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useRouter } from 'next/navigation';
 
 import { toast } from "sonner";
+import Cookies from "js-cookie";
 
 export default function EditBoard({ boardid, title, state, setState = () => { } }: BoardTypes) {
   const [oldTitle, setOldTitle] = useState(title);
@@ -22,10 +23,12 @@ export default function EditBoard({ boardid, title, state, setState = () => { } 
       try {
         setLoaderState(true);
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/boards/update/${boardid}`, {
-          method: 'PUT',
+          method: "PUT",
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${Cookies.get('token')}`
           },
+          credentials: 'include',
           body: JSON.stringify({ title: oldTitle })
         });
 
