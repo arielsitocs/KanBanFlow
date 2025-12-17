@@ -1,7 +1,7 @@
 interface BoardTypes {
   boardid: number;
   title: string;
-  userid: number;
+  userid?: number;
   pendingTasks?: number;
   inProgressTasks?: number;
   completedTasks?: number;

@@ -17,12 +17,16 @@ import Cookies from "js-cookie";
 
 import { useRouter } from "next/navigation";
 
-export default function NavBar() {
+import { UserPayload } from "../types/UserPayLoad";
+
+interface NavBarProps {
+    user: UserPayload;
+}
+
+export default function NavBar({ user }: NavBarProps) {
     const [navBarResStatus, setNavBarResStatus] = useState(false);
 
     const router = useRouter();
-
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
 
     const handleLogout = () => {
         localStorage.removeItem('token');
