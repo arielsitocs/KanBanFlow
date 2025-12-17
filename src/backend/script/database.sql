@@ -12,7 +12,7 @@ CREATE TABLE users(
 DELETE FROM users WHERE userid = 6;
 
 INSERT INTO boards (title, userid) VALUES 
-	('Test Validacion', 6)
+	('Test Validacion', 8)
 
 CREATE TABLE boards(
 	boardId SERIAL PRIMARY KEY,
