@@ -13,8 +13,23 @@ import NavBarRes from "./ui/NavBarRes";
 
 import { useState } from "react";
 
+import Cookies from "js-cookie";
+
+import { useRouter } from "next/navigation";
+
 export default function NavBar() {
     const [navBarResStatus, setNavBarResStatus] = useState(false);
+
+    const router = useRouter();
+
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        Cookies.remove('token');
+        router.push('/auth/login');
+    }
 
     return (
         <div className="flex justify-between w-full p-3 bg-main relative">
@@ -30,9 +45,9 @@ export default function NavBar() {
             </div>
             <div className="flex items-center text-sm md:text-lg">
                 <Image src={UserIcon} width={36} height={36} alt="User" className="w-[30px] h-[30px] md:w-[36px] md:h-[36px]" />
-                <h1 className="ml-2 text-white font-poppins">Bienvenido, Ariel!</h1>
+                <h1 className="ml-2 text-white font-poppins">Bienvenido, {user.username}!</h1>
                 <div className="ml-0 md:ml-6 p-2 rounded-[5px] bg-dark-gray cursor-pointer hover:scale-115 transition-transform">
-                    <Link href={"/auth/login"}><Image src={LogoutIcon} width={26} height={26} alt="Logout" /></Link>
+                    <Image src={LogoutIcon} width={26} height={26} alt="Logout" onClick={handleLogout} />
                 </div>
             </div>
             <NavBarRes status={navBarResStatus} setNavBarResStatus={setNavBarResStatus} />

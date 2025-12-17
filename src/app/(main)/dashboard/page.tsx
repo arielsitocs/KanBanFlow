@@ -3,6 +3,8 @@ import DashboardHeader from "../../../components/ui/DashboardHeader"
 import Board from "../../../components/Board";
 import BoardTypes from "../../../types/Board";
 
+import verifyToken from "../../../utils/TokenVerify";
+
 export const dynamic = 'force-dynamic';
 
 // funcion que trae los tableros desde la api //
@@ -22,6 +24,9 @@ async function getBoards() {
 export default async function Dashboard() {
     const boards: BoardTypes[] = await getBoards();
 
+    // extraemos los datos del usuario del token verificado para poder usarlos //
+    const user = await verifyToken();
+
     return (
         <main className="p-10">
             <DashboardHeader />
@@ -29,13 +34,15 @@ export default async function Dashboard() {
                 {
                     boards.length >= 1 ?
                         boards.map((board) => {
-                            return (
-                                <Board
-                                    key={board.boardid}
-                                    boardid={board.boardid}
-                                    title={board.title}
-                                />
-                            )
+                            if (Number(board.userid) === Number(user.userid))
+                                return (
+                                    <Board
+                                        key={board.boardid}
+                                        boardid={board.boardid}
+                                        title={board.title}
+                                        userid={board.userid}
+                                    />
+                                )
                         })
                         : <DashboardWelcome />
                 }

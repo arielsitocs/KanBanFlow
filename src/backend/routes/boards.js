@@ -1,6 +1,8 @@
 import { Router } from "express";
 import prisma from "../config/db.js";
 
+import authMiddleware from "../middleware/auth.js";
+
 const router = Router();
 
 router.get("/", (req, res) => {
@@ -43,13 +45,14 @@ router.get("/getone/:id", async (req, res) => {
   }
 })
 
-router.post("/create", async (req, res) => {
+router.post("/create", authMiddleware, async (req, res) => {
   const { title } = req.body;
 
   try {
     const response = await prisma.boards.create({
       data: {
-        userid: 1,
+        // extraemos el id del usuario del token verificado para poder usarlo //
+        userid: req.user.userid,
         title: title
       }
     })

@@ -26,6 +26,8 @@ export default function NewBoard({ state, setState }: NewBoardFormTypes) {
         headers: {
           "Content-Type": "application/json"
         },
+        // para que deje enviar las cookies al backend //
+        credentials: 'include',
         body: JSON.stringify({ title })
       })
 

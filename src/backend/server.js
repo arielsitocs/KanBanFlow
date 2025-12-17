@@ -7,18 +7,25 @@ import boardRoutes from "./routes/boards.js";
 import taskRoutes from "./routes/tasks.js";
 import userRoutes from "./routes/users.js";
 
+// para que el backend pueda leer las cookies //
+import cookieParser from "cookie-parser";
+
 const app = express();
 
 // middlewares //
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({
+  origin: process.env.CORS_ORIGIN || "http://localhost:3000",
+  credentials: true
+}));
 
 // se aplican las rutas importadas con una url en especifico //
 app.use("/api/boards", boardRoutes);
 app.use("/api/tasks", taskRoutes);
 app.use("/api/users", userRoutes);
 
-const PORT = process.env.PORT || process.env.SERVER_PORT || 4000;
+const PORT = process.env.PORT || process.env.SERVER_PORT;
 
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}.`);

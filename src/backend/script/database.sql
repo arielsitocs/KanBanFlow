@@ -9,11 +9,16 @@ CREATE TABLE users(
 	password VARCHAR NOT NULL
 );
 
+DELETE FROM users WHERE userid = 6;
+
+INSERT INTO boards (title, userid) VALUES 
+	('Test Validacion', 6)
+
 CREATE TABLE boards(
 	boardId SERIAL PRIMARY KEY,
 	title VARCHAR not null,
 	userId INT,
-	FOREIGN KEY (useriD) REFERENCES users(userId)
+	FOREIGN KEY (useriD) REFERENCES users(userId) ON DELETE CASCADE
 );
 
 CREATE TABLE tasks(
@@ -24,8 +29,7 @@ CREATE TABLE tasks(
 	status VARCHAR NOT NULL,
 	boardId INT,
 	userId INT,
-	FOREIGN KEY (boardId) REFERENCES boards(boardId) ON DELETE CASCADE,
-	FOREIGN KEY (userId) REFERENCES users(userId)
+	FOREIGN KEY (boardId) REFERENCES boards(boardId) ON DELETE CASCADE
 );
 
 INSERT INTO users (username, email, password) VALUES 
@@ -43,6 +47,7 @@ INSERT INTO boards (title, userid) VALUES
     ('Ideas de Negocio', 3),
     ('Viaje a Japón', 4),
     ('Rutina de Gym', 5);
+	
 
 INSERT INTO tasks (taskName, limitDate, priority, status, boardId, userId) VALUES
 
