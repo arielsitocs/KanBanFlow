@@ -25,12 +25,15 @@ export default function BoardMenu({ boardid, title, state }: BoardTypes) {
 
   async function handleDeleteBoard() {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/boards/deleteone/${boardid}`, {
-        method: "DELETE",
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/boards/update/${boardid}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${Cookies.get('token')}`
         },
+        body: JSON.stringify({
+          removed: true
+        }),
         credentials: 'include'
       })
       if (response.ok) {
@@ -61,7 +64,7 @@ export default function BoardMenu({ boardid, title, state }: BoardTypes) {
         ) : null
       }
       <EditBoard boardid={boardid} title={title} state={editBoardState} setState={setEditBoardState} />
-      <Alert message="Estás seguro de querer borrar este tablero?" type="confirm" status={deleteBoardState} setStatus={setDeleteBoardState} action={() => handleDeleteBoard()} prop={`El tablero "${title}" será borrado permanentemente junto con todas sus tareas.`} />
+      <Alert message="Estás seguro de querer borrar este tablero?" type="confirm" status={deleteBoardState} setStatus={setDeleteBoardState} action={() => handleDeleteBoard()} prop={`El tablero "${title}" será movido a la papelera dondre podras recuperarlo o borrarlo permanentemente.`} />
     </>
   )
 }

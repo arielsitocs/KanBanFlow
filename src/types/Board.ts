@@ -1,6 +1,8 @@
 interface BoardTypes {
   boardid: number;
   title: string;
+  tasks?: any[];
+  removed?: boolean;
   userid?: number;
   pendingTasks?: number;
   inProgressTasks?: number;

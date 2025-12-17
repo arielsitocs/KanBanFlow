@@ -45,7 +45,7 @@ export default function NavBar({ user }: NavBarProps) {
             </div>
             <div className="flex items-center gap-8 hidden md:flex">
                 <Link href={"/dashboard"} className="flex items-center text-white font-poppins border-b-4 border-transparent hover:border-white transition-borders duration-140 pb-1 pt-2"><Image className="mr-1" src={DashboardIcon} width={28} height={28} alt="Dashboard" />Dashboard</Link>
-                <Link href={"/trash"} className="flex Ditems-center text-white font-poppins border-b-4 border-transparent hover:border-white transition-borders duration-140 pb-1 pt-2"><Image className="mr-1" src={TrashIcon} width={28} height={28} alt="Trash" />Trash</Link>
+                <Link href={"/trash"} className="flex Ditems-center text-white font-poppins border-b-4 border-transparent hover:border-white transition-borders duration-140 pb-1 pt-2"><Image className="mr-1" src={TrashIcon} width={28} height={28} alt="Trash" />Papelera</Link>
             </div>
             <div className="flex items-center text-sm md:text-lg">
                 <Image src={UserIcon} width={36} height={36} alt="User" className="w-[30px] h-[30px] md:w-[36px] md:h-[36px]" />

@@ -1,6 +1,5 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -9,10 +8,11 @@ datasource db {
 }
 
 model boards {
-  boardid Int     @id @default(autoincrement())
-  title   String  @db.VarChar
+  boardid Int      @id @default(autoincrement())
+  title   String   @db.VarChar
+  removed Boolean? @default(false)
   userid  Int?
-  users   users?  @relation(fields: [userid], references: [userid], onDelete: Cascade, onUpdate: NoAction)
+  users   users?   @relation(fields: [userid], references: [userid], onDelete: Cascade, onUpdate: NoAction)
   tasks   tasks[]
 }
 

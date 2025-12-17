@@ -11,7 +11,8 @@ CREATE TABLE users(
 
 CREATE TABLE boards(
 	boardId SERIAL PRIMARY KEY,
-	title VARCHAR not null,
+	title VARCHAR NOT NULL,
+	removed BOOL,
 	userId INT,
 	FOREIGN KEY (useriD) REFERENCES users(userId) ON DELETE CASCADE
 );

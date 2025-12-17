@@ -69,15 +69,16 @@ router.post("/create", authMiddleware, async (req, res) => {
 })
 
 router.put("/update/:id", authMiddleware, async (req, res) => {
-  const { title } = req.body;
-  
+  const { title, removed } = req.body;
+
   try {
     const response = await prisma.boards.update({
       where: {
         boardid: parseInt(req.params.id)
       },
       data: {
-        title: title
+        title: title,
+        removed: removed
       }
     })
 

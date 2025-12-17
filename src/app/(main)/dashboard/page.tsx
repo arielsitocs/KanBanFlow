@@ -34,7 +34,7 @@ export default async function Dashboard() {
                 {
                     boards.length >= 1 ?
                         boards.map((board) => {
-                            if (Number(board.userid) === Number(user.userid))
+                            if (Number(board.userid) === Number(user.userid) && board.removed === false)
                                 return (
                                     <Board
                                         key={board.boardid}
