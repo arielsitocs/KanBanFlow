@@ -9,6 +9,8 @@ export default async function MainLayout({
 }>) {
 
   // extraemos el usuario aqui ya que navbar no permite la verifyToken (que es un server component y navbar es client component) //
+  // ademas, si el usuario no esta autenticado redirigira al login automaticamente (evita navegacion por url no autorizada) //
+  // esto siempre se hara ya que la funcion se ejecuta cada vez que se quiera acceder a una pagina protegida (dashboard, papelera, etc) //
   const user = await verifyToken();
 
   return (

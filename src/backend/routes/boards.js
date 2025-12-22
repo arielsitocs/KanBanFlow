@@ -74,7 +74,9 @@ router.put("/update/:id", authMiddleware, async (req, res) => {
   try {
     const response = await prisma.boards.update({
       where: {
-        boardid: parseInt(req.params.id)
+        boardid: parseInt(req.params.id),
+        // verificamos que el tablero pertenezca al usuario logueado //
+        userid: parseInt(req.user.userid)
       },
       data: {
         title: title,
@@ -97,7 +99,9 @@ router.delete("/deleteone/:id", authMiddleware, async (req, res) => {
   try {
     const response = await prisma.boards.delete({
       where: {
-        boardid: parseInt(req.params.id)
+        boardid: parseInt(req.params.id),
+        // aqui tambien verificamos que el tablero pertenezca al usuario logueado //
+        userid: parseInt(req.user.userid)
       }
     })
 

@@ -17,8 +17,6 @@ const authMiddleware = (req, res, next) => {
     // guardar los datos del usuario en la request //
     req.user = decoded;
 
-    console.log("Usuario autenticado:", req.user);
-
     next();
   } catch (error) {
     return res.status(401).json({ message: "Token inválido" });

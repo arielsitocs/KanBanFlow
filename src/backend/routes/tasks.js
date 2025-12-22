@@ -94,7 +94,7 @@ router.put("/update/:id", authMiddleware, async (req, res) => {
   }
 })
 
-router.delete("/delete/:id", authMiddleware, async (req, res) => {
+router.delete("/deleteone/:id", authMiddleware, async (req, res) => {
   try {
     const response = await prisma.tasks.delete({
       where: {
@@ -109,6 +109,34 @@ router.delete("/delete/:id", authMiddleware, async (req, res) => {
     }
   } catch (error) {
     console.error('Error en el servidor al eliminar la tarea: ', error.message)
+  }
+})
+
+router.delete("/deletemany/:status/:boardid", authMiddleware, async (req, res) => {
+  try {
+    const { status, boardid } = req.params;
+
+    // validar que los parámetros existan //
+    if (!status || !boardid) {
+      return res.status(400).json({ message: "Status y boardid son obligatorios" });
+    }
+
+    // eliminar todas las tareas con el status y boardid especificados //
+    const response = await prisma.tasks.deleteMany({
+      where: {
+        status: status,
+        boardid: parseInt(boardid)
+      }
+    })
+
+    if (response.count > 0) {
+      res.status(200).json({ message: `${response.count} tarea(s) eliminada(s) con exito` })
+    } else {
+      res.status(404).json({ message: "No se encontraron tareas para eliminar" })
+    }
+  } catch (error) {
+    console.error('Error en el servidor al eliminar las tareas: ', error.message)
+    res.status(500).json({ message: "Error al eliminar las tareas: ", error: error.message })
   }
 })
 

@@ -15,10 +15,10 @@ import { toast } from "sonner";
 import Cookies from "js-cookie";
 
 export default function EditTask({ board, taskid, taskname, limitdate, priority, status, state, setState = () => { } }: TaskTypes) {
-  const [oldName, setOldName] = useState(taskname);
+  const [oldName, setOldName] = useState(taskname || '');
   const [oldLimitDate, setOldLimitDate] = useState(limitdate ? new Date(limitdate).toISOString().split('T')[0] : '');
-  const [oldPriority, setOldPriority] = useState(priority);
-  const [oldTaskState, setOldTaskState] = useState(status);
+  const [oldPriority, setOldPriority] = useState(priority || 'Baja');
+  const [oldTaskState, setOldTaskState] = useState(status || 'pending');
   const [loaderState, setLoaderState] = useState(false);
 
   const router = useRouter();
@@ -37,7 +37,7 @@ export default function EditTask({ board, taskid, taskname, limitdate, priority,
     e.preventDefault();
     try {
       setLoaderState(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tasks/delete/${taskid}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tasks/deleteone/${taskid}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -119,7 +119,7 @@ export default function EditTask({ board, taskid, taskname, limitdate, priority,
                     <option value="Media">Media</option>
                     <option value="Alta">Alta</option>
                   </select>
-                  <h1 className="form-input-title">Estado Inicial</h1>
+                  <h1 className="form-input-title">Estado</h1>
                   <select
                     className="form-input"
                     onChange={(e) => setOldTaskState(e.target.value as any)}

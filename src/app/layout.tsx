@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+
 import { Poppins, M_PLUS_1p, Inter, Luckiest_Guy } from "next/font/google";
+
 import "./globals.css";
+
 import { Toaster } from "sonner";
 
 const poppins = Poppins({

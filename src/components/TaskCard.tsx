@@ -14,10 +14,11 @@ import Alert from '../components/ui/Alert';
 import EditTask from './forms/EditTask';
 
 import { useState } from 'react';
+import { toast } from 'sonner';
+
+import Cookies from 'js-cookie';
 
 import { useRouter } from 'next/navigation';
-
-import { toast } from 'sonner';
 
 export default function TasksCard({ state, board, tasks }: TaskCardTypes) {
 
@@ -43,6 +44,32 @@ export default function TasksCard({ state, board, tasks }: TaskCardTypes) {
     }
   }
 
+  // funcion para eliminar todas las tareas por estado (pendiente, en progreso, compltado) //
+  const handleDeleteTasksByStatus = async (status: string) => {
+    try {
+      // hacer la petición DELETE con los parámetros en la URL (estado y id del tablero para solo eliminar en este tablero) //
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tasks/deletemany/${status}/${board.boardid}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${Cookies.get('token')}`
+        },
+        credentials: 'include'
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        toast.success(data.message || 'Tareas eliminadas exitosamente');
+        router.refresh();
+      } else {
+        toast.error('Error al eliminar las tareas');
+      }
+    } catch (error) {
+      console.error('Error en el servidor al eliminar las tareas: ', error);
+      toast.error('Error en el servidor al eliminar las tareas');
+    }
+  }
+
   return (
     <div className="h-[95%]">
       <div className={`border-t-[3px] ${state == 'pending' ? 'border-orange' : state == 'in progress' ? 'border-light-blue' : 'border-green'} task-card h-full flex flex-col`}>
@@ -61,9 +88,9 @@ export default function TasksCard({ state, board, tasks }: TaskCardTypes) {
           {
             state == 'in progress' ? (
               inProgressTasks.length > 0 ?
-                inProgressTasks.map((task: any) => (
+                inProgressTasks.map((task: any, index: number) => (
                   <div key={task.taskid} onClick={() => handleUpdateTask(task.taskid)}>
-                    <Task key={task.taskid} taskid={task.taskid} taskname={task.taskname} limitdate={task.limitdate} priority={task.priority as TaskTypes['priority']} status={task.status as TaskTypes['status']} />
+                    <Task key={task.taskid} taskid={task.taskid} taskname={task.taskname} limitdate={task.limitdate} priority={task.priority as TaskTypes['priority']} status={task.status as TaskTypes['status']} taskNumber={index + 1} />
                   </div>
                 ))
                 : <div className='w-full h-full flex items-center justify-center bg-task-gray-background'>
@@ -71,9 +98,9 @@ export default function TasksCard({ state, board, tasks }: TaskCardTypes) {
                 </div>
             ) : state == 'completed' ? (
               completedTasks.length > 0 ?
-                completedTasks.map((task: any) => (
+                completedTasks.map((task: any, index: number) => (
                   <div key={task.taskid} onClick={() => handleUpdateTask(task.taskid)}>
-                    <Task key={task.taskid} taskid={task.taskid} taskname={task.taskname} limitdate={task.limitdate} priority={task.priority as TaskTypes['priority']} status={task.status as TaskTypes['status']} />
+                    <Task key={task.taskid} taskid={task.taskid} taskname={task.taskname} limitdate={task.limitdate} priority={task.priority as TaskTypes['priority']} status={task.status as TaskTypes['status']} taskNumber={index + 1} />
                   </div>
                 ))
                 : <div className='w-full h-full flex items-center justify-center bg-task-gray-background'>
@@ -81,9 +108,9 @@ export default function TasksCard({ state, board, tasks }: TaskCardTypes) {
                 </div>
             ) : state == 'pending' ? (
               pendingTasks.length > 0 ?
-                pendingTasks.map((task: any) => (
+                pendingTasks.map((task: any, index: number) => (
                   <div key={task.taskid} onClick={() => handleUpdateTask(task.taskid)}>
-                    <Task key={task.taskid} taskid={task.taskid} taskname={task.taskname} limitdate={task.limitdate} priority={task.priority as TaskTypes['priority']} status={task.status as TaskTypes['status']} />
+                    <Task key={task.taskid} taskid={task.taskid} taskname={task.taskname} limitdate={task.limitdate} priority={task.priority as TaskTypes['priority']} status={task.status as TaskTypes['status']} taskNumber={index + 1} />
                   </div>
                 ))
                 : <div className='w-full h-full flex items-center justify-center bg-task-gray-background'>
@@ -95,7 +122,7 @@ export default function TasksCard({ state, board, tasks }: TaskCardTypes) {
       </div>
       <NewTask board={board} state={newTaskState} setState={setNewTaskState} />
       <Alert message="Estás seguro de eliminar todas las tareas?" prop="Se eliminarán todas las tareas de esta tabla"
-        type='confirm' status={alertState} setStatus={setAlertState} action={() => { }} />
+        type='confirm' status={alertState} setStatus={setAlertState} action={() => handleDeleteTasksByStatus(state)} />
       <EditTask board={board} taskid={editTask.taskid} taskname={editTask.taskname} limitdate={editTask.limitdate} priority={editTask.priority} status={editTask.status} state={editTaskState} setState={setEditTaskState} />
     </div>
   )
