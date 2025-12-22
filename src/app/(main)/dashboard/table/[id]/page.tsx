@@ -2,7 +2,6 @@ import TableProps from "../../../../../types/TableProps";
 import BoardTypes from "../../../../../types/Board";
 
 import TaskCard from "@/src/components/TaskCard";
-import TaskCardView from "../../../../../components/TaskCardView";
 
 import Image from "next/image";
 
